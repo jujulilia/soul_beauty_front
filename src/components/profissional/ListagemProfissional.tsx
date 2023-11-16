@@ -4,6 +4,7 @@ import styles from "../../App.module.css";
 
 import axios from 'axios';
 import { CadastroProfissionalInterface } from '../../interfaces/CadastroProfissionalInterface';
+import { Link } from 'react-router-dom';
 
 const ListagemProfissional = () => {
 
@@ -89,33 +90,32 @@ const ListagemProfissional = () => {
                             <table className='table table-hover'>
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        {/* <th>ID</th> */}
                                         <th>Nome</th>
-                                        <th>Celular</th>
+                                        {/* <th>Celular</th> */}
                                         <th>E-mail</th>
                                         <th>CPF</th>
-                                        <th>Data de Nascimento</th>
+                                        {/* <th>Data de Nascimento</th> */}
                                         <th>Cidade</th>
                                         <th>Estado</th>
                                         <th>País</th>
                                         <th>Rua</th>
-                                        <th>Número</th>
                                         <th>Bairro</th>
                                         <th>CEP</th>
-                                        <th>Complemento</th>
+                                        {/* <th>Complemento</th> */}
                                         <th>Salário</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {profissionals.map(profissionals => (
+                                {profissionals.map(profissionals => (
                                         <tr key={profissionals.id}>
-                                            <td>{profissionals.id}</td>
+                                            {/* <td>{profissionals.id}</td> */}
                                             <td>{profissionals.nome}</td>
-                                            <td>{profissionals.celular}</td>
+                                            {/* <td>{profissionals.celular}</td> */}
                                             <td>{profissionals.email}</td>
                                             <td>{profissionals.cpf}</td>
-                                            <td>{profissionals.dataNascimento}</td>
+                                            {/* <td>{profissionals.dataNascimento}</td> */}
                                             <td>{profissionals.cidade}</td>
                                             <td>{profissionals.estado}</td>
                                             <td>{profissionals.pais}</td>
@@ -123,12 +123,12 @@ const ListagemProfissional = () => {
                                             <td>{profissionals.numero}</td>
                                             <td>{profissionals.bairro}</td>
                                             <td>{profissionals.cep}</td>
-                                            <td>{profissionals.complemento}</td>
+                                            {/* <td>{profissionals.complemento}</td> */}
                                             <td>{profissionals.salario}</td>
 
 
                                             <td>
-                                                <a href="#" className='btn btn-primary btn-sm'>Editar</a>
+                                            <Link to={"/profissional/editar/" + profissionals.id} className='btn btn-primary btn-sm'>Editar</Link>
                                                 <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
                                             </td>
                                         </tr>

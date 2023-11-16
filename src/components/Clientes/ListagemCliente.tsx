@@ -3,13 +3,13 @@ import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'r
 import styles from "../../App.module.css";
 
 import axios from 'axios';
-import { CadastroServicoInterface } from '../../interfaces/CadastroServicoInterface';
+import { CadastroClienteInterface } from '../../interfaces/CadastroClienteInterface';
 import { Link } from 'react-router-dom';
 
 
-const ListagemServico = () => {
+const ListagemCliente = () => {
 
-    const [servicos, setServicos] = useState<CadastroServicoInterface[]>([]);
+    const [clientes, setClientes] = useState<CadastroClienteInterface[]>([]);
     const [pesquisa, setPesquisa] = useState<string>('');
     const [error, setError] = useState("");
 
@@ -25,7 +25,7 @@ const ListagemServico = () => {
         async function fetchData() {
             try {
 
-                const response = await axios.post('http://localhost:8000/api/servico/nome',
+                const response = await axios.post('http://localhost:8000/api/cliente/nome',
                     { nome: pesquisa },
                     {
                         headers: {
@@ -34,9 +34,9 @@ const ListagemServico = () => {
                         }
                     }).then(function (response) {
                         if (response.data.status === true){
-                        setServicos(response.data.data);
+                        setClientes(response.data.data);
                         }else{
-                            setServicos([]);
+                            setClientes([]);
                         }
                     }).catch(function (error) {
                         console.log(error);
@@ -52,8 +52,8 @@ const ListagemServico = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get('http://localhost:8000/api/servico/retornarTodos/');
-                setServicos(response.data.data);
+                const response = await axios.get('http://localhost:8000/api/cliente/retornarTodos/');
+                setClientes(response.data.data);
 
             } catch (error) {
                 setError("Ocorreu um erro");
@@ -87,29 +87,45 @@ const ListagemServico = () => {
 
                     <div className='card'>
                         <div className='card-body'>
-                            <h5 className='table table-hover'>Listagem de Serviços</h5>
+                            <h5 className='table table-hover'>Listagem de Clientes</h5>
                             <table className='table table-hover'>
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        {/* <th>ID</th> */}
                                         <th>Nome</th>
-                                        <th>Descrição</th>
-                                        <th>Duração</th>
-                                        <th>Preco</th>
+                                        {/* <th>Celular</th> */}
+                                        <th>E-mail</th>
+                                        <th>CPF</th>
+                                        {/* <th>Data de Nascimento</th> */}
+                                        <th>Cidade</th>
+                                        <th>Estado</th>
+                                        <th>País</th>
+                                        <th>Rua</th>
+                                        <th>Bairro</th>
+                                        <th>CEP</th>
+                                        {/* <th>Complemento</th> */}
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {servicos.map(servicos => (
-                                        <tr key={servicos.id}>
-                                            <td>{servicos.id}</td>
-                                            <td>{servicos.nome}</td>
-                                            <td>{servicos.descricao}</td>
-                                            <td>{servicos.duracao}</td>
-                                            <td>{servicos.preco}</td>
+                                    {clientes.map(clientes => (
+                                        <tr key={clientes.id}>
+                                            {/* <td>{clientes.id}</td> */}
+                                            <td>{clientes.nome}</td>
+                                            {/* <td>{clientes.celular}</td> */}
+                                            <td>{clientes.email}</td>
+                                            <td>{clientes.cpf}</td>
+                                            {/* <td>{clientes.dataNascimento}</td> */}
+                                            <td>{clientes.cidade}</td>
+                                            <td>{clientes.estado}</td>
+                                            <td>{clientes.pais}</td>
+                                            <td>{clientes.rua}</td>
+                                            <td>{clientes.bairro}</td>
+                                            <td>{clientes.cep}</td>
+                                            {/* <td>{clientes.complemento}</td> */}
                                             <td>
-                                            </td>
-                                            <Link to={"/servico/editar/" + servicos.id} className='btn btn-primary btn-sm'>Editar</Link>
+                                                <Link to={"/cliente/editar/" + clientes.id} className='btn btn-primary btn-sm'>Editar</Link>
                                                 <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -122,4 +138,4 @@ const ListagemServico = () => {
     );
 }
 
-export default ListagemServico;
+export default ListagemCliente;
