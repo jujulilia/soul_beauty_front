@@ -1,6 +1,6 @@
 import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from "react";
 import FooterProfissional from "./FooterProfissional";
-import Header from "../profissional/HeaderProfissional";
+import Header from "./HeaderProfissional";
 import styles from "../../App.module.css"
 import { useParams } from "react-router-dom";
 import axios from "axios";

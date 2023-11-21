@@ -95,7 +95,7 @@ const ListagemServico = () => {
                                         <th>Nome</th>
                                         <th>Descrição</th>
                                         <th>Duração</th>
-                                        <th>Preco</th>
+                                        <th>Preço</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -107,10 +107,12 @@ const ListagemServico = () => {
                                             <td>{servicos.duracao}</td>
                                             <td>{servicos.preco}</td>
                                             <td>
-                                            </td>
+                                        
                                             <Link to={"/servico/editar/" + servicos.id} className='btn btn-primary btn-sm'>Editar</Link>
                                                 <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
+                                                </td>
                                         </tr>
+                                        
                                     ))}
                                 </tbody>
                             </table>
