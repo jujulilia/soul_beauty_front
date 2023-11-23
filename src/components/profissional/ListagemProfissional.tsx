@@ -5,6 +5,7 @@ import styles from "../../App.module.css";
 import axios from 'axios';
 import { CadastroProfissionalInterface } from '../../interfaces/CadastroProfissionalInterface';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const ListagemProfissional = () => {
 
@@ -47,6 +48,51 @@ const ListagemProfissional = () => {
 
         fetchData();
     }
+
+    function handleDelete(id: number) {
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger"
+            },
+            buttonsStyling: false
+        });
+        swalWithBootstrapButtons.fire({
+            title: "Tem certeza?",
+            text: "Você não poderá reverter isso!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sim, exclua-o!",
+            cancelButtonText: "Não, cancele!",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                swalWithBootstrapButtons.fire({
+                    title: "Deletado!",
+                    text: "O profissional foi excluido",
+                    icon: "success"
+                });
+
+                axios.delete('http://127.0.0.1:8000/api/profissional/delete/' + id)
+                    .then(function (response) {
+                        window.location.href = "/listagemProfissional"
+                    }).catch(function (error) {
+                        console.log("ocorreu um erro")
+                    })
+            } else if (
+               
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire({
+                    title: "Cancelado",
+                    text: "O profissional não foi excluido",
+                    icon: "error"
+                });
+            }
+        });
+
+    }   
 
     useEffect(() => {
         async function fetchData() {
@@ -129,7 +175,7 @@ const ListagemProfissional = () => {
 
                                             <td>
                                             <Link to={"/profissional/editar/" + profissionals.id} className='btn btn-primary btn-sm'>Editar</Link>
-                                                <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
+                                            <a onClick={()=> handleDelete(profissionals.id)} className='btn btn-danger btn-sm'>Excluir</a>
                                             </td>
                                         </tr>
                                     ))}

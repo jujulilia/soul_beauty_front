@@ -1,6 +1,6 @@
 import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'react';
-import Header from '../Header';
-import Footer from "./FooterServico";
+import Header from './HeaderServico';
+import FooterServico from "./FooterServico";
 import styles from '../../App.module.css';
 import axios from 'axios';
 
@@ -115,7 +115,7 @@ const CadastroServico = () => {
                     </div>
                 </div>
             </main>
-            <Footer />
+            <FooterServico />
         </div>
     );
 }

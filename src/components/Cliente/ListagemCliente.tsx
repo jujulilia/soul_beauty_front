@@ -5,6 +5,7 @@ import styles from "../../App.module.css";
 import axios from 'axios';
 import { CadastroClienteInterface } from '../../interfaces/CadastroClienteInterface';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 const ListagemCliente = () => {
@@ -47,6 +48,50 @@ const ListagemCliente = () => {
         }
 
         fetchData();
+    }
+
+    function handleDelete(id: number) {
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger"
+            },
+            buttonsStyling: false
+        });
+        swalWithBootstrapButtons.fire({
+            title: "Tem certeza?",
+            text: "Você não poderá reverter isso!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sim, exclua-o!",
+            cancelButtonText: "Não, cancele!",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                swalWithBootstrapButtons.fire({
+                    title: "Deletado!",
+                    text: "O cliente foi excluido",
+                    icon: "success"
+                });
+
+                axios.delete('http://127.0.0.1:8000/api/cliente/delete/' + id)
+                    .then(function (response) {
+                        window.location.href = "/listagemCliente"
+                    }).catch(function (error) {
+                        console.log("ocorreu um erro")
+                    })
+            } else if (
+               
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire({
+                    title: "Cancelado",
+                    text: "O cliente não foi excluido",
+                    icon: "error"
+                });
+            }
+        });
     }
 
     useEffect(() => {
@@ -124,7 +169,8 @@ const ListagemCliente = () => {
                                             {/* <td>{clientes.complemento}</td> */}
                                             <td>
                                                 <Link to={"/cliente/editar/" + clientes.id} className='btn btn-primary btn-sm'>Editar</Link>
-                                                <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
+                                                <a onClick={()=> handleDelete(clientes.id)} className='btn btn-danger btn-sm'>Excluir</a>
+
                                             </td>
                                         </tr>
                                     ))}
