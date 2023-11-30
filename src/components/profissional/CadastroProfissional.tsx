@@ -1,5 +1,5 @@
 import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'react';
-import Header from '../Header';
+import Header from './HeaderProfissional';
 import styles from "../../App.module.css";
 import axios from 'axios';
 import FooterProfissional from './FooterProfissional';
@@ -22,6 +22,21 @@ const CadastroProfissional = () => {
     const [password, setPassword] = useState<string>("");
     const [salario, setSalario] = useState<string>("");
     const [erro, setErro] = useState<string>("");
+    const [nomeErro, setNomeErro] = useState<string>("");
+    const [celularErro, setCelularErro] = useState<string>("");
+    const [emailErro, setEmailErro] = useState<string>("");
+    const [cpfErro, setCpfErro] = useState<string>("");
+    const [dataNascimentoErro, setDataNascimentoErro] = useState<string>("");
+    const [cidadeErro, setCidadeErro] = useState<string>("");
+    const [estadoErro, setEstadoErro] = useState<string>("");
+    const [paisErro, setPaisErro] = useState<string>("");
+    const [ruaErro, setRuaErro] = useState<string>("");
+    const [numeroErro, setNumeroErro] = useState<string>("");
+    const [bairroErro, setBairroErro] = useState<string>("");
+    const [cepErro, setCepErro] = useState<string>("");
+    const [complementoErro, setComplementoErro] = useState<string>("");
+    const [passwordErro, setPasswordErro] = useState<string>("");
+    const [salarioErro, setSalarioErro] = useState<string>("");
 
 
     const findCep = (e: FormEvent) => {
@@ -44,7 +59,23 @@ const CadastroProfissional = () => {
 
     }
 
+
     const CadastroProfissional = (e: FormEvent) => {
+        e.preventDefault();
+        setNomeErro("")
+        setEmailErro("")
+        setCpfErro("")
+        setDataNascimentoErro("")
+        setCidadeErro("")
+        setEstadoErro("")
+        setPaisErro("")
+        setRuaErro("")
+        setNumeroErro("")
+        setBairroErro("")
+        setCepErro("")
+        setComplementoErro("")
+        setPasswordErro("")
+        setSalarioErro("")
         e.preventDefault();
 
         const dados = {
@@ -73,8 +104,55 @@ const CadastroProfissional = () => {
                 "Content-Type": "application/json"
             }
         }).then(function(response){
-            console.log(response.data)
+            if(response.data.success === false){
+                if('nome' in response.data.error){
+                    setNomeErro(response.data.error.nome[0])
+                }
+                if('celular' in response.data.error){
+                    setCelularErro(response.data.error.celular[0])
+                }
+                if('email' in response.data.error){
+                    setEmailErro(response.data.error.email[0])
+                }
+                if('cpf' in response.data.error){
+                    setCpfErro(response.data.error.cpf[0])
+                }
+                if('dataNascimento' in response.data.error){
+                    setDataNascimentoErro(response.data.error.dataNascimento[0])
+                }
+                if('cidade' in response.data.error){
+                    setCidadeErro(response.data.error.cidade[0])
+                }
+                if('estado' in response.data.error){
+                    setEstadoErro(response.data.error.estado[0])
+                }
+                if('pais' in response.data.error){
+                    setPaisErro(response.data.error.pais[0])
+                }
+                if('rua' in response.data.error){
+                    setRuaErro(response.data.error.rua[0])
+                }
+                if('numero' in response.data.error){
+                    setNumeroErro(response.data.error.numero[0])
+                }
+                if('bairro' in response.data.error){
+                    setBairroErro(response.data.error.bairro[0])
+                }
+                if('cep' in response.data.error){
+                    setCepErro(response.data.error.cep[0])
+                }
+                if('password' in response.data.error){
+                    setPasswordErro(response.data.error.password[0])
+                }
+                if('complemento' in response.data.error){
+                    setComplementoErro(response.data.error.complemento[0])
+                }
+                if('salario' in response.data.error){
+                    setSalarioErro(response.data.error.salario[0])
+                }
+            }else{
           window.location.href = "/listagemProfissional";
+            }
         }).catch(function(error){
             console.log(error);
         });
@@ -160,6 +238,7 @@ return(
                         required
                         onChange={handleState}
                         />
+                         <div className='text-danger'>{nomeErro}</div>
                         </div>
 
                 <div className='col-3'>
@@ -170,6 +249,7 @@ return(
                         required
                         onChange={handleState}
                         />
+                         <div className='text-danger'>{celularErro}</div>
                         </div>
 
                 <div className='col-3'>
@@ -180,6 +260,7 @@ return(
                         required
                         onChange={handleState}
                         />
+                         <div className='text-danger'>{emailErro}</div>
                         </div>
 
                 <div className='col-3'>
@@ -190,6 +271,7 @@ return(
                         required
                         onChange={handleState}
                         />
+                         <div className='text-danger'>{cpfErro}</div>
                         </div>
 
                 <div className='col-3'>
@@ -200,6 +282,7 @@ return(
                         required
                         onChange={handleState}
                         />
+                         <div className='text-danger'>{dataNascimentoErro}</div>
                         </div>
 
                 <div className='col-3'>
@@ -211,6 +294,7 @@ return(
                         value={cidade}
                         onChange={handleState}
                         />
+                         <div className='text-danger'>{cidadeErro}</div>
                         </div>
 
                 <div className='col-3'>
@@ -222,6 +306,8 @@ return(
                         value={estado}
                         onChange={handleState}
                         />
+                         <div className='text-danger'>{estadoErro}</div>
+
                         </div>
 
                 <div className='col-3'>
@@ -232,6 +318,8 @@ return(
                         required
                         onChange={handleState}
                         />
+                         <div className='text-danger'>{paisErro}</div>
+
                         </div>
 
                 <div className='col-3'>
@@ -242,6 +330,8 @@ return(
                         required
                         onChange={handleState}
                         />
+                         <div className='text-danger'>{ruaErro}</div>
+
                         </div>
 
                 <div className='col-3'>
@@ -252,6 +342,8 @@ return(
                         required
                         onChange={handleState}
                         />
+                         <div className='text-danger'>{numeroErro}</div>
+
                         </div>
 
                 <div className='col-3'>
@@ -262,6 +354,8 @@ return(
                         required
                         onChange={handleState}
                         />
+                         <div className='text-danger'>{bairroErro}</div>
+
                         </div>
 
                 <div className='col-3'>
@@ -273,6 +367,8 @@ return(
                         required
                         onChange={handleState}
                         />
+                         <div className='text-danger'>{cepErro}</div>
+
                         </div>
 
                 <div className='col-3'>
@@ -283,6 +379,8 @@ return(
                         required
                         onChange={handleState}
                         />
+                         <div className='text-danger'>{complementoErro}</div>
+
                         </div>
 
                 <div className='col-3'>
@@ -293,6 +391,8 @@ return(
                         required
                         onChange={handleState}
                         />
+                         <div className='text-danger'>{passwordErro}</div>
+
                         </div>
 
                 <div className='col-3'>
@@ -303,6 +403,7 @@ return(
                         required
                         onChange={handleState}
                         />
+                      <div className='text-danger'>{salarioErro}</div>
                         </div>
 
                         <div className='col-12'>

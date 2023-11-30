@@ -10,9 +10,17 @@ const CadastroServico = () => {
     const [descricao, setDescricao] = useState<string>("");
     const [duracao, setDuracao] = useState<string>("");
     const [preco, setPreco] = useState<string>("");
+    const [nomeErro, setNomeErro] = useState<string>("");
+    const [descricaoErro, setDescricaoErro] = useState<string>("");
+    const [duracaoErro, setDuracaoErro] = useState<string>("");
+    const [precoErro, setPrecoErro] = useState<string>("");
 
     const cadastroServico = (e: FormEvent) => {
         e.preventDefault();
+        setDescricaoErro("")
+        setNomeErro("")
+        setDuracaoErro("")
+        setPrecoErro("")
 
         const dados = {
             nome: nome,
