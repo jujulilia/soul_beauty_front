@@ -4,6 +4,7 @@ import styles from "../../App.module.css";
 import axios from 'axios';
 import FooterCliente from './FooterCliente';
 import HeaderCliente from './HeaderCliente';
+import { Link } from 'react-router-dom';
 
 const CadastroCliente = () => {
 
@@ -214,6 +215,30 @@ const CadastroCliente = () => {
 
 return(
     <div>
+    <nav className=" bg-info">
+       <ul className="nav nav-tabs">
+           <li className="nav-item dropdown btn-info">
+               <a className="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Cadastros</a>
+               <ul className="dropdown-menu">
+                   <li><Link to={"/CadastroServico"} className="dropdown-item" >Cadastro Serviço</Link></li>
+                   <li><Link to={"/cadastroProfissional"} className="dropdown-item">Cadastro Profissional</Link></li>
+                 
+               </ul>
+           </li>
+           <li className="nav-item dropdown btn-info">
+               <a className="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Listagens</a>
+               <ul className="dropdown-menu">
+                   <li><Link to={"/ListagemServico"} className="dropdown-item" >Listagem Serviço</Link></li>
+                   <li><Link to={"/ListagemCliente"} className="dropdown-item">Listagem Cliente</Link></li>
+                   <li><Link to={"/ListagemProfissional"} className="dropdown-item">Listagem Profissional</Link></li>
+                   <li><Link to={"/ListagemAgenda"} className="dropdown-item">Listagem Agenda</Link></li>
+
+                 
+               </ul>
+           </li>
+
+       </ul>
+   </nav>
         <HeaderCliente />
         <main className={styles.main}>
             <div className='container'>

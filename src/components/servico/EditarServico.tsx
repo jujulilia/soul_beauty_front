@@ -14,9 +14,20 @@ const EditarServico = () => {
     const [preco, setPreco] = useState<string>("");
     const [id, setId] = useState<number>();
 
+    const [nomeErro, setNomeErro] = useState<string>("");
+    const [descricaoErro, setDescricaoErro] = useState<string>("");
+    const [duracaoErro, setDuracaoErro] = useState<string>("");
+    const [precoErro, setPrecoErro] = useState<string>("");
+
     const parametro = useParams();
 
     const atualizar = (e: FormEvent) => {
+        e.preventDefault();
+        setNomeErro("")
+        setDescricaoErro("")
+        setDuracaoErro("")
+        setPrecoErro("")
+
         e.preventDefault();
 
         const dados = {
@@ -36,6 +47,23 @@ const EditarServico = () => {
             }
         }).then(function(response){
             window.location.href = "/listagemServico";
+            if(response.data.success === false){
+
+                if('nome' in response.data.error){
+                    setNomeErro(response.data.error.nome[0])
+                }
+                if('descricao' in response.data.error){
+                    setDescricaoErro(response.data.error.descricao[0])
+                }
+                if('duracao' in response.data.error){
+                    setDuracaoErro(response.data.error.duracao[0])
+                }
+                if('preco' in response.data.error){
+                    setPrecoErro(response.data.error.preco[0])
+                }
+            } else{
+            window.location.href = "/listagemServico";
+            }
         }).catch(function(error){
             console.log('Ocorreu um erro ao atualizar');
         });
@@ -93,6 +121,7 @@ const EditarServico = () => {
                                         onChange={handleState}
                                         value={nome}
                                     />
+                                <div className='text-danger'>{nomeErro}</div>
 
                                 </div>
                                 <div className='col-6'>
@@ -104,6 +133,7 @@ const EditarServico = () => {
                                         onChange={handleState}
                                         value={descricao}
                                     />
+                                <div className='text-danger'>{descricaoErro}</div>
 
                                 </div>
                                 <div className='col-6'>
@@ -115,6 +145,8 @@ const EditarServico = () => {
                                         onChange={handleState}
                                         value={duracao}
                                     />
+                                <div className='text-danger'>{duracaoErro}</div>
+
                                 </div>
 
                                 <div className='col-6'>
@@ -126,8 +158,10 @@ const EditarServico = () => {
                                         onChange={handleState}
                                         value={preco}
                                     />
+                                <div className='text-danger'>{precoErro}</div>
+
                                 </div>
-            
+           
                                 <div className='col-12'>
                                     <button
                                         type='submit'
